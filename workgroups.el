@@ -1539,11 +1539,12 @@ current, switch to another from the current workgroup."
 
 (defun wg-mode-line-add-display ()
   "Add Workgroups' mode-line format to `mode-line-format'."
-  (unless (assq 'wg-mode-line-on mode-line-format)
-    (let ((format `(wg-mode-line-on (:eval (wg-mode-line-string))))
-          (pos (1+ (position 'mode-line-position mode-line-format))))
-      (set-default 'mode-line-format
-                   (wg-insert-elt format mode-line-format pos)))))
+  (when wg-mode-line-on
+    (unless (assq 'wg-mode-line-on mode-line-format)
+      (let ((format `(wg-mode-line-on (:eval (wg-mode-line-string))))
+            (pos (1+ (position 'mode-line-position mode-line-format))))
+        (set-default 'mode-line-format
+                     (wg-insert-elt format mode-line-format pos))))))
 
 (defun wg-mode-line-remove-display ()
   "Remove Workgroups' mode-line format from `mode-line-format'."
